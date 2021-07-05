@@ -4,39 +4,55 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    public PlayerState startingState;
+    public CharacterState startingState;
+    PlayerState[] CharacterStates;
+    public CharacterState currentState;
 
-    Stats stats;
-    Status status;
-    PlayerStateMachine stateMachine;
-    Animator anim;
-    Controller CC;
+    protected Stats stats;
+    protected Status status;
+    protected PlayerStateMachine stateMachine;
+    protected Animator anim;
+    protected Controller CC;
+
+    public float rotationThreshold;
+    protected FaceDirection facing;
+
+    public DirectionStyle directionStyle;
 
     private void Start()
     {
         CC = GetComponent<Controller>();
-        stateMachine = new PlayerStateMachine(startingState);
+        stateMachine = new PlayerStateMachine(startingState, gameObject);
         anim = GetComponent<Animator>();
-        if(startingState != null)startingState = stateMachine.idleState;
 
     }
 
     private void Update()
     {
-        stateMachine.Update();
+        stateMachine.StateUpdate();
         AnimationHandling();
+        currentState = stateMachine.CurrentState.stateType;
+        
     }
 
     private void FixedUpdate()
     {
-        stateMachine.FixedUpdate();
+        stateMachine.StateFixedUpdate();
     }
 
 
     private void AnimationHandling()
     {
+        if (CC.velocity.sqrMagnitude > rotationThreshold)
+        {
+            int faceDirection;
 
+            //anim.SetInteger("FaceDirection", faceDirection );
+        }
     }
 
 
 }
+
+public enum FaceDirection { North, NorthEast, East, SouthEast, South, SouthWest, West, NorthWest };
+public enum DirectionStyle { Locked, TwoWay, FourWay, EightWay, Unlocked };

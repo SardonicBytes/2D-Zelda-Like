@@ -7,31 +7,20 @@ public class Controller : MonoBehaviour
     Character character;
     Rigidbody2D rb;
     Vector2 lastPosition;
-    float accelleration;
 
-    public float groundCheckOffset;
-    public float groundCheckRadius;
-    public bool IsGrounded;
-    public LayerMask groundLayers;
-
-    public virtual bool GroundCheck()
+    public Vector2 velocity
     {
-        RaycastHit2D[] checkHits = Physics2D.CircleCastAll(transform.position - new Vector3(0, groundCheckOffset, 0), groundCheckRadius, Vector2.right, groundLayers);
-        return (checkHits.Length == 0);
-    }
-
-    Vector2 velocity
-    {
-        get { return (lastPosition - (Vector2)transform.position)/Time.fixedDeltaTime; }
+        get { return rb.velocity; }
     }
     Status status;
 
-    public void Init(Character newCharacter)
+    public void Start()
     {
+        lastPosition = transform.position;
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public void Move ( Vector2 direction)
+    public void SetVelocity ( Vector2 direction)
     {
         rb.velocity = direction;
     }
@@ -39,7 +28,6 @@ public class Controller : MonoBehaviour
     public void FixedUpdate()
     {
         lastPosition = (Vector2)transform.position;
-        IsGrounded = GroundCheck();
     }
 
 }

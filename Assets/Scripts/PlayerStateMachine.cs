@@ -4,23 +4,32 @@ using UnityEngine;
 
 public class PlayerStateMachine
 {
+    public struct SerializableState
+    {
+        public CharacterState characterState;
+        public PlayerState playerState;
+    }
     [SerializeField]
-    public PlayerState idleState;
-    public PlayerState walkState;
-    public PlayerState runState;
-    public PlayerState jumpUpState;
-    public PlayerState fallState;
-    public PlayerState slideState;
+    public SerializableState[] serializableStates;
+
 
     public PlayerState CurrentState { get; private set; }
+    [SerializeField]
     public Dictionary<CharacterState, PlayerState> characterStates = new Dictionary<CharacterState, PlayerState>();
     
 
-    public PlayerStateMachine(PlayerState startingState)
+    public PlayerStateMachine(CharacterState startingState, GameObject gameObject)
     {
-        CurrentState = startingState;
+
+        PlayerState[] allStates = gameObject.GetComponents<PlayerState>();
+        
+        for (int i = 0; i < allStates.Length; i++)
+        {
+            characterStates.Add(allStates[i].stateType, allStates[i]);
+            allStates[i].OnEquip(this);
+        }
+        CurrentState = characterStates[startingState];
         CurrentState.EnterState();
-        characterStates.Add(CharacterState.Idle, idleState);
     }
 
     public void ChangeState(CharacterState newState)
@@ -30,16 +39,16 @@ public class PlayerStateMachine
         CurrentState.EnterState();
     }
 
-    public void Update()
+    public virtual void StateUpdate()
     {
-        CurrentState.Update();
+        CurrentState.StateUpdate();
     }
 
-    public void FixedUpdate()
+    public virtual void StateFixedUpdate()
     {
-        CurrentState.Update();
+        CurrentState.StateFixedUpdate();
     }
 
 }
 
-public enum CharacterState { Idle, JumpStart, Jumping, Falling, Sliding, Running, LightHurt, Hardhurt, Dying }
+

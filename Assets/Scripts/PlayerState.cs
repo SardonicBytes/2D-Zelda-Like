@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerState
+[System.Serializable]
+public class PlayerState : MonoBehaviour
 {
+    public CharacterState stateType;
     protected PlayerStateMachine stateMachine;
     protected Controller CC;
-    [SerializeField]
-    protected string stateName;
 
-    public float animationStateName;
+    public string animationStateName;
 
     public bool IsActive { get; private set; }
 
@@ -23,19 +23,20 @@ public class PlayerState
         IsActive = false;
     }
 
-    public virtual void Update()
+    public virtual void StateUpdate()
     {
 
     }
 
-    public virtual void FixedUpdate()
+    public virtual void StateFixedUpdate()
     {
 
     }
 
-    public virtual void OnEquip()
+    public virtual void OnEquip( PlayerStateMachine newStateMachine)
     {
-
+        CC = GetComponent<Controller>();
+        stateMachine = newStateMachine;
     }
 
     public virtual void OnUnequip()
