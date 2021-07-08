@@ -123,6 +123,49 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &18986758
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 18986760}
+  - component: {fileID: 18986759}
+  m_Layer: 0
+  m_Name: Test
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &18986759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 18986758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 726d2f1438e84254aa42eb4b07a322d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &18986760
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 18986758}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &43771403
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,6 +176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 43771404}
   - component: {fileID: 43771405}
+  - component: {fileID: 43771406}
   m_Layer: 0
   m_Name: idle_0
   m_TagString: Untagged
@@ -206,6 +250,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &43771406
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43771403}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5df5590bc733e4f4a8975a23bfd8d812, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &236619056
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,6 +281,8 @@ GameObject:
   - component: {fileID: 236619059}
   - component: {fileID: 236619058}
   - component: {fileID: 236619057}
+  - component: {fileID: 236619062}
+  - component: {fileID: 236619061}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -239,6 +304,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingState: 0
   currentState: 0
+  rotationThreshold: 0
+  facing: 0
+  directionStyle: 2
+  Velocity: {x: 0, y: 0}
 --- !u!58 &236619058
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -263,7 +332,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 236619056}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -284,13 +353,43 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 236619056}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 74.983376, y: -11.449691, z: -39.32207}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 43771404}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &236619061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 236619056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50d084e2539ede94d9347c4f27f39f2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateType: 0
+  animationStateName: Locomotion
+  walkSpeed: 5
+  walkAccelleration: 0.5
+  runSpeed: 1
+  runAccelleration: 1
+--- !u!114 &236619062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 236619056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66a9e6c31de6dd24fbe3d5cd68eedef1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &286146871
 GameObject:
   m_ObjectHideFlags: 0

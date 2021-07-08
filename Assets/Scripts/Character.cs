@@ -15,7 +15,7 @@ public class Character : MonoBehaviour
     protected Controller CC;
 
     public float rotationThreshold;
-    protected FaceDirection facing;
+    public FaceDirection facing;
 
     public DirectionStyle directionStyle;
 
@@ -23,7 +23,7 @@ public class Character : MonoBehaviour
     {
         CC = GetComponent<Controller>();
         stateMachine = new PlayerStateMachine(startingState, gameObject);
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
 
     }
 
@@ -34,10 +34,11 @@ public class Character : MonoBehaviour
         currentState = stateMachine.CurrentState.stateType;
         
     }
-
+    public Vector2 Velocity;
     private void FixedUpdate()
     {
         stateMachine.StateFixedUpdate();
+        Velocity = CC.velocity;
     }
 
 
@@ -45,9 +46,10 @@ public class Character : MonoBehaviour
     {
         if (CC.velocity.sqrMagnitude > rotationThreshold)
         {
-            int faceDirection;
-
-            //anim.SetInteger("FaceDirection", faceDirection );
+            facing = CC.velocity.ToCardinalSmoothed(facing, 0f, directionStyle);
+            //facing = CC.velocity.ToC
+            //facing = Velocity.ToAngle
+            anim.SetInteger("Direction", facing.ToInt() );
         }
     }
 
