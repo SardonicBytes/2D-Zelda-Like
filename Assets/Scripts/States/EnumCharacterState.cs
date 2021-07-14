@@ -1,1 +1,1 @@
-public enum CharacterState { Default, Run, Attack, Block, HoldingBomb }
+public enum CharacterState { Default, Attack, Dash }

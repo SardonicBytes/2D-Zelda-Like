@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Controller : MonoBehaviour
 {
-    Character character;
+    [HideInInspector]
+    public Character character;
     Rigidbody2D rb;
     Vector2 lastPosition;
 
@@ -14,10 +15,11 @@ public class Controller : MonoBehaviour
     }
     Status status;
 
-    public void Start()
+    public void Init()
     {
         lastPosition = transform.position;
         rb = GetComponent<Rigidbody2D>();
+        character = GetComponent<Character>();
     }
 
     public void SetVelocity ( Vector2 direction)

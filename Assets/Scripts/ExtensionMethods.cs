@@ -48,12 +48,10 @@ public static class ExtensionMethods
         float baseDifference = (directionStyle == DirectionStyle.FourWay) ? 45f : 22.5f;
         if (Mathf.Abs(moveDirectionAngle - currentFaceDirection.ToAngle()) > baseDifference - forgiveness)
         {
-            Debug.Log("MoveDirectionAngle: " + moveDirectionAngle + "  SuggestedDirectionAngle: " + suggestedDirectionAngle +  "  Difference between angles: " + Mathf.Abs(moveDirectionAngle - suggestedDirectionAngle) + "  Returning new direction.");
             return suggestedDirection;
         }
         else
         {
-            Debug.Log("MoveDirectionAngle: " + moveDirectionAngle + "  SuggestedDirectionAngle: " + suggestedDirectionAngle + "  Difference between angles: " + Mathf.Abs(moveDirectionAngle - suggestedDirectionAngle) + "  Returning old Direction.");
             return currentFaceDirection;
         }
 

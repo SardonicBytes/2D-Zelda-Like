@@ -11,7 +11,7 @@ public class ExtensionTester : MonoBehaviour
         //Test_FaceDirectionToFloat();
         //Test_AngleToCardinal_4Way();
         //Test_AngleToCardinal_8Way();
-        Test_ToCardinalSmoothed_4Way();
+        //Test_ToCardinalSmoothed_4Way();
     }
 
     void Test_Vector2ToAngle()

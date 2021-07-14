@@ -8,6 +8,8 @@ public class PlayerState : MonoBehaviour
     public CharacterState stateType;
     protected PlayerStateMachine stateMachine;
     protected Controller CC;
+    protected Animator anim;
+    protected Character character;
 
     public string animationStateName;
 
@@ -36,6 +38,8 @@ public class PlayerState : MonoBehaviour
     public virtual void OnEquip( PlayerStateMachine newStateMachine)
     {
         CC = GetComponent<Controller>();
+        character = CC.character;
+        anim = character.anim;
         stateMachine = newStateMachine;
     }
 

@@ -11,7 +11,7 @@ public class Character : MonoBehaviour
     protected Stats stats;
     protected Status status;
     protected PlayerStateMachine stateMachine;
-    protected Animator anim;
+    public Animator anim;
     protected Controller CC;
 
     public float rotationThreshold;
@@ -21,8 +21,11 @@ public class Character : MonoBehaviour
 
     private void Start()
     {
+        
         CC = GetComponent<Controller>();
+        CC.Init();
         stateMachine = new PlayerStateMachine(startingState, gameObject);
+        
         anim = GetComponentInChildren<Animator>();
 
     }
@@ -49,7 +52,9 @@ public class Character : MonoBehaviour
             facing = CC.velocity.ToCardinalSmoothed(facing, 0f, directionStyle);
             //facing = CC.velocity.ToC
             //facing = Velocity.ToAngle
-            anim.SetInteger("Direction", facing.ToInt() );
+            anim.SetFloat("Direction", (float)facing.ToInt() );
+            GetComponentInChildren<SpriteRenderer>().flipX = (facing == FaceDirection.East || facing == FaceDirection.NorthEast || facing == FaceDirection.SouthEast);
+            anim.SetFloat("Speed", CC.velocity.sqrMagnitude);
         }
     }
 

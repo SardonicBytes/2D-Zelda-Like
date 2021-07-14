@@ -14,6 +14,7 @@ public class DefaultState : PlayerState
     public override void EnterState()
     {
         base.EnterState();
+        CC.GetComponentInChildren<Animator>().Play("Locomotion", -1);
     }
 
     public override void ExitState()
@@ -24,6 +25,16 @@ public class DefaultState : PlayerState
     public override void StateUpdate()
     {
         base.StateUpdate();
+        if (Input.GetMouseButtonDown(0))
+        {
+
+            stateMachine.ChangeState(CharacterState.Attack);
+        }
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+
+            stateMachine.ChangeState(CharacterState.Dash);
+        }
     }
 
     public override void StateFixedUpdate()
@@ -32,10 +43,8 @@ public class DefaultState : PlayerState
         Vector2 inputDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         if (inputDirection.sqrMagnitude > 1) inputDirection.Normalize();
         if (inputDirection.sqrMagnitude < 0.1) inputDirection = Vector2.zero;
-
-        //Vector2 moveDirection = Vector2.Lerp(CC.velocity, inputDirection * walkSpeed, Time.deltaTime * walkAccelleration);
-
-        Vector2 moveDirection = inputDirection * walkSpeed;
+        runMod = (Input.GetKey(KeyCode.LeftShift))? 1.5f : 1f;
+        Vector2 moveDirection = Vector2.Lerp(CC.velocity, inputDirection * walkSpeed * runMod, Time.deltaTime * walkAccelleration);
         CC.SetVelocity(moveDirection);
 
     }
